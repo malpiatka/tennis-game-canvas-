@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>tennis game</title>
+    <meta charset="UTF-8">
+    <title>tennis game</title>
 </head>
 <body>
-<canvas id="game" width="900" height="700"></canvas>
-	<script>
-	var canvas;
-	var canvasContext;
-	window.onload =function(){
-		canvas=document.getElementById('game');
-		canvasContext = canvas.getContext('2d');
-		canvasContext.fillStyle='rgb(47, 47, 47)';
-		canvasContext.fillRect(0,0,canvas.width,canvas.height);
-	}
-		
-	
-	</script>
+<canvas id="game" width="1000" height="700"></canvas>
+<script>
+    var canvas;
+    var canvasContext;
+    var ballX = 30;
+    var ballY = 30;
+
+    window.onload = function () {
+        canvas = document.getElementById('game');
+        canvasContext = canvas.getContext('2d');
+        setInterval(draw, 10);
+    };
+
+    function draw() {
+        ballX = ballX + 1.46;
+        ballY = ballY + 1;
+        canvasContext.fillStyle = 'rgb(47, 47, 47)';
+        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+        canvasContext.fillStyle = 'white';
+        canvasContext.fillRect(ballX, ballY, 10, 10);
+    }
+</script>
 </body>
 </html>
