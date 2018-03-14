@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tennis game</title>
+</head>
+<body>
+<canvas id="game" width="900" height="700"></canvas>
+	<script>
+	var canvas;
+	var canvasContext;
+	window.onload =function(){
+		canvas=document.getElementById('game');
+		canvasContext = canvas.getContext('2d');
+		canvasContext.fillStyle='rgb(47, 47, 47)';
+		canvasContext.fillRect(0,0,canvas.width,canvas.height);
+	}
+		
+	
+	</script>
+</body>
+</html>
