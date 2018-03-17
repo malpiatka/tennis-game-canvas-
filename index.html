@@ -6,58 +6,6 @@
 </head>
 <body>
 <canvas id="game" width="1000" height="700"></canvas>
-<script>
-
-    //variables
-    var canvas;
-    var canvasContext;
-    var ballX = 500;
-    var ballXSpeed = 1;
-    var ballY = 350;
-    var ballYSpeed = 1;
-
-    //game window
-    window.onload = function () {
-        canvas = document.getElementById('game');
-        canvasContext = canvas.getContext('2d');
-        setInterval(callBoth, 5);
-    };
-
-    // calling draw and move elements at the same time
-    function callBoth() {
-        drawElements();
-        moveElements();
-    }
-    //create game elements
-    function drawElements() {
-        canvasContext.fillStyle = 'rgb(47, 47, 47)';
-        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-        canvasContext.fillStyle = 'white';
-        canvasContext.fillRect(5, 275, 10, 150);
-        canvasContext.fillStyle = 'white';
-        canvasContext.fillRect(985, 275, 10, 150);
-        canvasContext.fillStyle = 'yellow';
-        canvasContext.fillRect(ballX, ballY, 10, 10);
-    }
-    //move game elements
-    function moveElements() {
-        ballX = ballX + ballXSpeed;
-        if (ballX > canvas.width){
-            ballXSpeed = -ballXSpeed;
-        }
-        if (ballX <0){
-            ballXSpeed = -ballXSpeed;
-        }
-        ballY = ballY + ballYSpeed;
-        if (ballY > canvas.height){
-            ballYSpeed = -ballYSpeed;
-        }
-        if (ballY < 0){
-            ballYSpeed = -ballYSpeed;
-        }
-    }
-
-
-</script>
+<script type="text/javascript" src="script.js"></script>
 </body>
 </html>
