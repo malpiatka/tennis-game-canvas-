@@ -18,7 +18,7 @@ const paddleWidth = 10;
 let player1Score = 0;
 let player2Score = 0;
 let winScreen = false;
-const WinScore = 10;
+const WinScore = 1;
 
 
 //tracking mouse position
@@ -50,6 +50,15 @@ window.onload = function () {
         let mousePos = mousePosition(event);
         //paddle center
         paddle1Y = mousePos.y - (paddleHeight / 2);
+    });
+
+    //restart game after click play again window
+    canvas.addEventListener('mousedown', function () {
+        if (WinScore == true) {
+            player1Score = 0;
+            player2Score = 0;
+            winScreen = false;
+        }
     })
 };
 
@@ -58,6 +67,25 @@ function drawElements() {
     //game window size and color
     canvasContext.fillStyle = 'rgb(47, 47, 47)';
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+    drawNet();
+    //play again window
+    if (winScreen == true) {
+        canvasContext.font = '25px Arial';
+        canvasContext.fillStyle = 'white';
+        canvasContext.fillRect(canvas.width / 2 - 140, canvas.height / 2 - 100, 280, 50);
+        canvasContext.fillStyle = 'black';
+        // didn't work !!!!
+        if (player1Score >= WinScore) {
+            canvasContext.fillText('You Won!', canvas.width / 2 - 40, canvas.height / 2 - 70);
+        } else if (player2Score >= WinScore) {
+            canvasContext.fillText('Computer Won!', canvas.width / 2 - 60, canvas.height / 2 - 70);
+        }
+        canvasContext.fillStyle = 'white';
+        canvasContext.fillRect(canvas.width / 2 - 90, canvas.height - 170, 180, 50);
+        canvasContext.fillStyle = 'black';
+        canvasContext.fillText('Play again', canvas.width / 2 - 55, canvas.height - 135);
+        return;
+    }
     //drawing left player paddle
     canvasContext.fillStyle = 'white';
     canvasContext.fillRect(0, paddle1Y, paddleWidth, paddleHeight);
@@ -70,24 +98,16 @@ function drawElements() {
     canvasContext.arc(ballX, ballY, 10, 0, Math.PI * 2, true);
     canvasContext.fill();
     //score area
+    canvasContext.font = '25px Arial';
     canvasContext.fillStyle = 'white';
-    canvasContext.fillText(player1Score, 200,100);
-    canvasContext.fillText(player2Score, (canvas.width-200),100);
-    //play again window
-    if (winScreen == true){
-        canvasContext.fillStyle = 'white';
-        canvasContext.fillRect(canvas.width/2-50,canvas.height/2-50,100,50);
-        canvasContext.fillStyle = 'black';
-        canvasContext.fillText('play again',canvas.width/2-22,canvas.height/2-22);
-        return;
-    }
+    canvasContext.fillText(player1Score, 200, 100);
+    canvasContext.fillText(player2Score, (canvas.width - 200), 100);
 }
 
 //move game elements
 function moveElements() {
     //moving PC paddle
     moveCompPaddle();
-    drawNet();
     // ball reset when touch left or right side
     ballX += ballXSpeed;
     if (ballX > (canvas.width - paddleWidth)) {
@@ -117,9 +137,6 @@ function moveElements() {
     if (ballY < 0) {
         ballYSpeed = -ballYSpeed;
     }
-    if (winScreen == true){
-        return;
-    }
 }
 
 //reset ball and switch the ball's direction each time it's scored
@@ -128,10 +145,10 @@ function resetBall() {
     ballX = canvas.width / 2;
     ballY = canvas.height / 2;
     //reset score if player1 or player2 win
-    if ((player1Score || player2Score) >= WinScore){
-        player1Score= 0;
-        player2Score= 0;
-        winScreen =true;
+    if ((player1Score || player2Score) >= WinScore) {
+        player1Score = 0;
+        player2Score = 0;
+        winScreen = true;
     }
 }
 
@@ -145,8 +162,8 @@ function moveCompPaddle() {
 }
 
 function drawNet() {
-    for (let i=0; i<canvas.height; i+=40){
+    for (let i = 0; i < canvas.height; i += 40) {
         canvasContext.fillStyle = 'white';
-        canvasContext.fillRect(canvas.width/2-1, i, 2, 30)
+        canvasContext.fillRect(canvas.width / 2 - 1, i, 2, 30)
     }
 }
