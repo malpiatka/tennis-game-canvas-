@@ -17,7 +17,9 @@ const paddleWidth = 10;
 //score variables
 let player1Score = 0;
 let player2Score = 0;
+let winScreen = false;
 const WinScore = 10;
+
 
 //tracking mouse position
 function mousePosition(event) {
@@ -68,8 +70,17 @@ function drawElements() {
     canvasContext.arc(ballX, ballY, 10, 0, Math.PI * 2, true);
     canvasContext.fill();
     //score area
+    canvasContext.fillStyle = 'white';
     canvasContext.fillText(player1Score, 200,100);
     canvasContext.fillText(player2Score, (canvas.width-200),100);
+    //play again window
+    if (winScreen == true){
+        canvasContext.fillStyle = 'white';
+        canvasContext.fillRect(canvas.width/2-50,canvas.height/2-50,100,50);
+        canvasContext.fillStyle = 'black';
+        canvasContext.fillText('play again',canvas.width/2-22,canvas.height/2-22);
+        return;
+    }
 }
 
 //move game elements
@@ -83,9 +94,9 @@ function moveElements() {
         if (ballY > paddle2Y && ballY < paddle2Y + paddleHeight) {
             ballXSpeed = -ballXSpeed;
         } else {
+            //add point and reset ball
+            player1Score += 1; //before reset
             resetBall();
-            //add point
-            player1Score += 1;
         }
     }
     if (ballX < (0 + paddleWidth)) {
@@ -93,9 +104,9 @@ function moveElements() {
         if (ballY > paddle1Y && ballY < paddle1Y + paddleHeight) {
             ballXSpeed = -ballXSpeed;
         } else {
+            //add point and reset ball
+            player2Score += 1; //before reset
             resetBall();
-            //add point
-            player2Score += 1;
         }
     }
     //Y axis ball bounce
@@ -106,6 +117,9 @@ function moveElements() {
     if (ballY < 0) {
         ballYSpeed = -ballYSpeed;
     }
+    if (winScreen == true){
+        return;
+    }
 }
 
 //reset ball and switch the ball's direction each time it's scored
@@ -113,6 +127,12 @@ function resetBall() {
     ballXSpeed = -ballXSpeed;
     ballX = canvas.width / 2;
     ballY = canvas.height / 2;
+    //reset score if player1 or player2 win
+    if ((player1Score || player2Score) >= WinScore){
+        player1Score= 0;
+        player2Score= 0;
+        winScreen =true;
+    }
 }
 
 function moveCompPaddle() {
