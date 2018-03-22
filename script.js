@@ -1,16 +1,23 @@
-//variables
+//canvas variables
 let canvas;
 let canvasContext;
 
+//ball speed variables
 let ballX = 500;
-let ballXSpeed = 1;
+let ballXSpeed = 0.9;
 let ballY = 350;
-let ballYSpeed = 1;
+let ballYSpeed = 0.9;
 
+//paddle variables
 let paddle1Y = 275;
 let paddle2Y = 275;
 const paddleHeight = 150;
 const paddleWidth = 10;
+
+//score variables
+let player1Score = 0;
+let player2Score = 0;
+const WinScore = 10;
 
 //tracking mouse position
 function mousePosition(event) {
@@ -60,6 +67,9 @@ function drawElements() {
     canvasContext.beginPath();
     canvasContext.arc(ballX, ballY, 10, 0, Math.PI * 2, true);
     canvasContext.fill();
+    //score area
+    canvasContext.fillText(player1Score, 200,100);
+    canvasContext.fillText(player2Score, (canvas.width-200),100);
 }
 
 //move game elements
@@ -69,19 +79,23 @@ function moveElements() {
     drawNet();
     // ball reset when touch left or right side
     ballX += ballXSpeed;
-    if (ballX > canvas.width) {
+    if (ballX > (canvas.width - paddleWidth)) {
         if (ballY > paddle2Y && ballY < paddle2Y + paddleHeight) {
             ballXSpeed = -ballXSpeed;
         } else {
             resetBall();
+            //add point
+            player1Score += 1;
         }
     }
-    if (ballX < 0) {
+    if (ballX < (0 + paddleWidth)) {
         //bouncing off the paddle
         if (ballY > paddle1Y && ballY < paddle1Y + paddleHeight) {
             ballXSpeed = -ballXSpeed;
         } else {
             resetBall();
+            //add point
+            player2Score += 1;
         }
     }
     //Y axis ball bounce
@@ -104,9 +118,9 @@ function resetBall() {
 function moveCompPaddle() {
     let paddle2YCenter = paddle2Y + (paddleHeight / 2);
     if (paddle2YCenter < ballY) {
-        paddle2Y += 1;
+        paddle2Y += 0.75;
     } else {
-        paddle2Y -= 1;
+        paddle2Y -= 0.75;
     }
 }
 
