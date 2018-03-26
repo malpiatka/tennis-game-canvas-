@@ -113,6 +113,9 @@ function moveElements() {
     if (ballX > (canvas.width - paddleWidth)) {
         if (ballY > paddle2Y && ballY < paddle2Y + paddleHeight) {
             ballXSpeed = -ballXSpeed;
+            //change ball speed when bounce
+            let deltaY = ballY - (paddle2Y + paddleHeight / 2)
+            ballYSpeed = deltaY * 0.05;
         } else {
             //add point and reset ball
             player1Score += 1; //before reset
@@ -123,6 +126,9 @@ function moveElements() {
         //bouncing off the paddle
         if (ballY > paddle1Y && ballY < paddle1Y + paddleHeight) {
             ballXSpeed = -ballXSpeed;
+            //change ball speed when bounce
+            let deltaY = ballY - (paddle1Y + paddleHeight / 2)
+            ballYSpeed = deltaY * 0.05;
         } else {
             //add point and reset ball
             player2Score += 1; //before reset
@@ -167,3 +173,5 @@ function drawNet() {
         canvasContext.fillRect(canvas.width / 2 - 1, i, 2, 30)
     }
 }
+
+
