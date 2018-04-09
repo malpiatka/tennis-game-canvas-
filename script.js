@@ -54,7 +54,7 @@ window.onload = function () {
 
     //restart game after click play again window
     canvas.addEventListener('mousedown', function () {
-        if (WinScore == true) {
+        if (WinScore === true) {
             player1Score = 0;
             player2Score = 0;
             winScreen = false;
@@ -69,9 +69,9 @@ function drawElements() {
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
     drawNet();
     //play again window
-    if (winScreen == true) {
+    if (winScreen === true) {
         canvasContext.font = '25px Arial';
-        if (player1Score = WinScore) {
+        if (player1Score === WinScore) {
             canvasContext.fillStyle = 'white';
             canvasContext.fillRect(canvas.width / 2 - 140, canvas.height / 2 - 100, 280, 50);
             canvasContext.fillStyle = 'black';
@@ -80,7 +80,7 @@ function drawElements() {
             canvasContext.fillStyle = 'white';
             canvasContext.fillRect(canvas.width / 2 - 140, canvas.height / 2 - 100, 280, 50);
             canvasContext.fillStyle = 'black';
-            canvasContext.fillText('Computer Won!', canvas.width / 2 - 60, canvas.height / 2 - 65);
+            canvasContext.fillText('Computer Won!', canvas.width / 2 - 90, canvas.height / 2 - 65);
         }
         canvasContext.fillStyle = 'white';
         canvasContext.fillRect(canvas.width / 2 - 90, canvas.height - 170, 180, 50);
@@ -124,7 +124,7 @@ function moveElements() {
             resetBall();
         }
     }
-    if (ballX < (0 + paddleWidth)) {
+    if (ballX < (paddleWidth)) {
         //bouncing off the paddle
         if (ballY > paddle1Y && ballY < paddle1Y + paddleHeight) {
             ballXSpeed = -ballXSpeed;
