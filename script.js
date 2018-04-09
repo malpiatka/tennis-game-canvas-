@@ -18,7 +18,7 @@ const paddleWidth = 10;
 let player1Score = 0;
 let player2Score = 0;
 let winScreen = false;
-const WinScore = 1;
+const WinScore = 3;
 
 
 //tracking mouse position
@@ -71,14 +71,16 @@ function drawElements() {
     //play again window
     if (winScreen == true) {
         canvasContext.font = '25px Arial';
-        canvasContext.fillStyle = 'white';
-        canvasContext.fillRect(canvas.width / 2 - 140, canvas.height / 2 - 100, 280, 50);
-        canvasContext.fillStyle = 'black';
-        // didn't work !!!!
-        if (player1Score >= WinScore) {
-            canvasContext.fillText('You Won!', canvas.width / 2 - 40, canvas.height / 2 - 70);
-        } else if (player2Score >= WinScore) {
-            canvasContext.fillText('Computer Won!', canvas.width / 2 - 60, canvas.height / 2 - 70);
+        if (player1Score = WinScore) {
+            canvasContext.fillStyle = 'white';
+            canvasContext.fillRect(canvas.width / 2 - 140, canvas.height / 2 - 100, 280, 50);
+            canvasContext.fillStyle = 'black';
+            canvasContext.fillText('You Won!', canvas.width / 2 - 50, canvas.height / 2 - 65);
+        } else {
+            canvasContext.fillStyle = 'white';
+            canvasContext.fillRect(canvas.width / 2 - 140, canvas.height / 2 - 100, 280, 50);
+            canvasContext.fillStyle = 'black';
+            canvasContext.fillText('Computer Won!', canvas.width / 2 - 60, canvas.height / 2 - 65);
         }
         canvasContext.fillStyle = 'white';
         canvasContext.fillRect(canvas.width / 2 - 90, canvas.height - 170, 180, 50);
@@ -114,8 +116,8 @@ function moveElements() {
         if (ballY > paddle2Y && ballY < paddle2Y + paddleHeight) {
             ballXSpeed = -ballXSpeed;
             //change ball speed when bounce
-            let deltaY = ballY - (paddle2Y + paddleHeight / 2)
-            ballYSpeed = deltaY * 0.05;
+            let deltaY = ballY - (paddle2Y + paddleHeight / 2);
+            ballYSpeed = deltaY * 0.02;
         } else {
             //add point and reset ball
             player1Score += 1; //before reset
@@ -127,8 +129,8 @@ function moveElements() {
         if (ballY > paddle1Y && ballY < paddle1Y + paddleHeight) {
             ballXSpeed = -ballXSpeed;
             //change ball speed when bounce
-            let deltaY = ballY - (paddle1Y + paddleHeight / 2)
-            ballYSpeed = deltaY * 0.05;
+            let deltaY = ballY - (paddle1Y + paddleHeight / 2);
+            ballYSpeed = deltaY * 0.02;
         } else {
             //add point and reset ball
             player2Score += 1; //before reset
